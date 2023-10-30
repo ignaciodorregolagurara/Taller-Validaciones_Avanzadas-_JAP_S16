@@ -32,6 +32,9 @@
             <div class="col-12" id="divEmail">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" id="email">
+              <div id="divEmailError" class="invalid-feedback">
+                Debe ingresar un correo electrónico
+            </div>
             </div>
 
             <div class="col-sm-6" id="divContra1">
@@ -43,10 +46,11 @@
               <label for="password2" class="form-label">Repetir contraseña</label>
               <input type="password" class="form-control" id="password2">
             </div>
-
             <div class="col-sm-12">
-              <button id="btnTerminos" type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
-                data-bs-target="#modalTerminos">Términos del servicio</button>
+              <button id="btnTerminos" type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalTerminos">Términos del servicio</button>
+              <div id="divTerminosError" class="invalid-feedback">
+                Debe aceptar los términos del servicio
+              </div>
             </div>
 
 
