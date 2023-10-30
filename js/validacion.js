@@ -5,8 +5,9 @@ let impContra1 = document.getElementById("password1");
 let impContra2 = document.getElementById("password2");
 /* */
 let btnRegistro = document.getElementById("btnRegistrarme");
-let btnAbrirTerminos = document.getElementById("btnTerminos");
-let chkTerminos = document.getElementById("terminos");
+const chkTerminos = document.getElementById("terminos");
+const divTerminosError = document.getElementById("divTerminosError");
+const btnAbrirTerminos = document.getElementById("btnTerminos")
 /* */
 let divNombre = document.getElementById("divNombre");
 let divApellido = document.getElementById("divApellido");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             impNombre.classList.add("is-invalid");
             let AUXcontenedorNom = document.createElement("div");
             AUXcontenedorNom.classList.add("invalid-feedback");
-            AUXcontenedorNom.innerHTML = "Debe Ingresar un nombre";
+            AUXcontenedorNom.innerHTML = "Debe ingresar un nombre";
             divNombre.appendChild(AUXcontenedorNom);
             if (divNombre.children.length > 3) {
                 AUXcontenedorNom.classList.add("d-none");
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             impApellido.classList.remove("is-valid");
             let AUXcontenedorApe = document.createElement("div");
             AUXcontenedorApe.classList.add("invalid-feedback");
-            AUXcontenedorApe.innerHTML = "Debe Ingresar un apellido";
+            AUXcontenedorApe.innerHTML = "Debe ingresar un apellido";
             divApellido.appendChild(AUXcontenedorApe);
             if (divApellido.children.length > 3) {
                 AUXcontenedorApe.classList.add("d-none");
@@ -61,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
             impApellido.classList.remove("is-invalid");
         }
 
+        const existeError = divContra1.querySelector(".invalid-feedback");
+        if (existeError) {
+            divContra1.removeChild(existeError);
+        }
+    
         if (valorContra1 == "") {
             impContra1.classList.add("is-invalid");
             impContra1.classList.remove("is-valid");
@@ -68,20 +74,25 @@ document.addEventListener("DOMContentLoaded", function () {
             AUXcontenedorCon1.classList.add("invalid-feedback");
             AUXcontenedorCon1.innerHTML = "Debe Ingresar una contraseña";
             divContra1.appendChild(AUXcontenedorCon1);
-            if (divContra1.children.length > 3) {
-                AUXcontenedorCon1.classList.add("d-none");
-            }
+        } else if (valorContra1.length < 6) {
+            impContra1.classList.add("is-invalid");
+            impContra1.classList.remove("is-valid");
+            let AUXcontenedorCon1 = document.createElement("div");
+            AUXcontenedorCon1.classList.add("invalid-feedback");
+            AUXcontenedorCon1.innerHTML = "La contraseña debe tener al menos 6 caracteres";
+            divContra1.appendChild(AUXcontenedorCon1);
         } else {
             impContra1.classList.add("is-valid");
             impContra1.classList.remove("is-invalid");
-        }
+            }
+        
 
         if (valorContra2 == "") {
             impContra2.classList.remove("is-valid");
             impContra2.classList.add("is-invalid");
             let AUXcontenedorContra2 = document.createElement("div");
             AUXcontenedorContra2.classList.add("invalid-feedback");
-            AUXcontenedorContra2.innerHTML = "Debe Ingresar una contraseña";
+            AUXcontenedorContra2.innerHTML = "Debe ingresar una contraseña";
             divContra2.appendChild(AUXcontenedorContra2);
             if (divContra2.children.length > 3) {
                 AUXcontenedorContra2.classList.add("d-none");
@@ -104,12 +115,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } 
         
+
+        let valorEmail = impEmail.value.trim(); 
         let emailValido = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
-        if (impEmail.value != "" && emailValido.test(impEmail.value)) {
-        impEmail.classList.add("is-valid");
+        if (valorEmail !== "" && emailValido.test(valorEmail)) {
+            impEmail.classList.add("is-valid");
+            impEmail.classList.remove("is-invalid");
         } else {
-        impEmail.classList.add("is-invalid");
-        } 
+            impEmail.classList.remove("is-valid");
+            impEmail.classList.add("is-invalid");
+        }
+        
+            if (!chkTerminos.checked) {
+                chkTerminos.classList.add("is-invalid");
+                btnAbrirTerminos.classList.add("is-invalid");
+                divTerminosError.style.display = "block";
+            } else {
+                chkTerminos.classList.remove("is-invalid");
+                btnAbrirTerminos.classList.remove("is-invalid");
+                divTerminosError.style.display = "none";
+            }
     });
-}); 
+});
+
